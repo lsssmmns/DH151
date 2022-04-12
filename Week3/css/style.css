@@ -42,10 +42,15 @@ body {
 .sidebar-item {
     padding: 7px;
     background: rgb(240, 236, 236);
-    border: 3px rgb(160, 5, 26);
+    border: 3px rgb(204,11,37);
     text-align: center;
     margin: 3px;
     color: rgb(58, 35, 35);
+}
+.sidebar-item:hover {
+    cursor: pointer;
+    background-color: rgb(160, 5, 26);
+    color: rgb(240, 236, 236);
 }
 
 #pic {
