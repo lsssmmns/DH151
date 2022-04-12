@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="icon" type="image/jpg" href="images/icon.jpg" />
+
+	<title>Alyssa Simmons | DH151</title>
+	<meta charset="utf-8" />
+
+	<!-- style sheets -->
+	<link rel="stylesheet" href="css/aboutme.css">
+
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://use.fontawesome.com/1f6d93a05c.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+    crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<!-- div: a section of the website -->
+    <div class="header">
+        <h1>
+            About Me | DH151
+        </h1>
+	</div>
+	<div class="sidebar">
+        <p>
+            <img id=pic src="images/me.jpg">
+        </p>
+		<p>
+            <b>Alyssa Simmons</b> <br>
+            UCLA Class of 2022 <br>
+            Electrical Engineering<br>
+            <a style="color: rgb(255,255,255)" href="mailto: lsssmmns@ucla.edu">lsssmmns@ucla.edu</a>
+        </p>
+	</div>
+	<div class="content">
+        <p>
+            Hello! My name is Alyssa and I am a fourth year Electrical Engineering major from <i>San Luis Obispo, CA</i>. 
+            You can see my educational journey in the map below.
+            After graduation, I will be working for <i>Northrop Grumman</i> while pursuing a Masters in Electrical Engineering at <i>UCLA</i>. 
+            In my free time, I like to cook, read, and draw. 
+        <br><br>
+            Before I enrolled in this course, I had no idea what we would be covering over the next ten weeks. 
+            To be frank, I decided to enroll in this course to fulfill my technical breadth in Digital Humanities. 
+            However, I am extremely excited to learn more about building websites from scratch and incorporating digital 
+            mapping technologies with real life projects.
+        <br><br>
+            This quarter I hope to learn how to: <br>
+            <ul>
+                <li>build a website</li>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Javascript</li>
+                    </ul>
+                <li>design an efficient user interface</li>
+                    <ul>
+                        <li>practical layouts</li>
+                        <li>design process documentation</li>
+                    </ul>
+                <li>tell a story using geospatial technologies</li>
+                    <ul>
+                        <li>prepare spatial information for the web</li>
+                        <li>form hypotheses based on geographic data</li>
+                    </ul>
+            </ul>
+        </p>
+        <p>
+            Look at some of my past digital humanities projects!
+            <!-- Slideshow container -->
+            <div class="slideshow-container">
+
+                <!-- Full-width images with number and caption text -->
+                <div class="mySlides fade">
+                    <div id="bg">
+                        <a href="https://towertheatreclock.humspace.ucla.edu/">
+                            <img src="images/tower.png" id="pastProj">
+                        </a>
+                    </div>
+                </div>
+            
+                <div class="mySlides fade">
+                    <div id="bg">
+                        <a href="https://c19equity.humspace.ucla.edu/lsssmmns/">
+                            <img src="images/C19equity.png" id="pastProj">
+                    </div>
+                </a>
+                </div>
+            
+                <div class="mySlides fade">
+                    <div id="bg">
+                        <a href="https://scrbbl-ucla.netlify.app/#/">
+                            <img src="images/scrbbl.png" id="pastProj">
+                        </a>
+                    </div>
+                </div>
+            
+                <!-- Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <!-- The dots/circles -->
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </p>
+        <p>
+            Take a walk through my educational history! Click on the markers or the blocks below to learn more about the schools I have attended over the years.
+            <div id="index"></div>
+        </p>
+        <p>
+            <div id="map"></div>
+        </p>
+	</div>
+
+    <script src="js/data.js"></script>
+
+</body>
+</html>
