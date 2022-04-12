@@ -67,7 +67,7 @@ schools.forEach(item => {
     myMarkers.addLayer(marker)
 
     // add button to the site linking to map locations
-    $('#index').append(`<div class="sidebar-item" 
+    $('.sidebar').append(`<div class="sidebar-item" 
     onclick="flyToIndex(${item.id})"><h4>${item.title}</h4></div>`)
 })
 
