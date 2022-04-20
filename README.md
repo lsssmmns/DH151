@@ -10,6 +10,11 @@ by Alyssa Simmons
 ### Group Assignment 1: [Thick Map Proposal](https://github.com/lsssmmns/BTSTrackerSquad/blob/main/README.md)
 
 ## Week 3
-### Lab 2: [Story Map Example](https://lsssmmns.github.io/DH151/Week3/tutorial.html)
-### Individual Assignment 2: [Updated About Me](https://lsssmmns.github.io/DH151/Week3/aboutme.html) and [Story Map](https://lsssmmns.github.io/DH151/Week3/index.html)
+### Lab 3: [Story Map Example](https://lsssmmns.github.io/DH151/Week3/tutorial.html)
+### Individual Assignment 3: [Updated About Me](https://lsssmmns.github.io/DH151/Week3/aboutme.html) and [Story Map](https://lsssmmns.github.io/DH151/Week3/index.html)
 ### Group Assignment 2: [Group Update](https://github.com/lsssmmns/BTSTrackerSquad/blob/main/GroupUpdate.md)
+
+## Week 4
+### Lab 4: [CSV Story Map Example](https://lsssmmns.github.io/DH151/Week4/index.html)
+### Individual Assignment 4: [BTS CSV Story Map](https://lsssmmns.github.io/DH151/Week4/bts.html)
+### Group Assignment 3: [Data Plan Update](https://github.com/lsssmmns/BTSTrackerSquad/blob/main/DataPlanUpdate.md) and [Storyboard](https://github.com/lsssmmns/BTSTrackerSquad/blob/main/storyboard.md)
