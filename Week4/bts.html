@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BTS Televised Live Performances</title>
+	<meta charset="utf-8" />
+
+	<!-- style sheets -->
+	<link rel="stylesheet" href="css/btsstyle.css">
+
+	<!-- leaflet -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+
+    <script src="js/papaparse.min.js"></script>
+
+</head>
+<body>
+
+	<div class="header">
+		BTS Televised Live Performances
+	</div>
+	<div class="sidebar">
+        <p>
+            <img id=pic src="photos/bts1.jpg">
+        </p>
+		<p id="desc"> 
+            <b>
+                Since their debut in 2013, BTS (Bangtan Sonyeondan or “Beyond the Scene”) has done 149 televised live performances in 21 different cities.
+            </b>
+        </p>
+        <p id="desc"> 
+            <b>
+                Click on a country below to focus on performances in that region.
+            </b>
+		</p>
+	</div>
+	<div class="content">
+		<div id="map"></div>
+	</div>
+	<div class="footer">
+		Source: <a id="link" href="https://en.wikipedia.org/wiki/List_of_BTS_live_performances#Tours"> Wikipedia
+	</div>
+
+	<script src="js/btsLivePerformance.js"></script>
+
+</body>
+</html>
