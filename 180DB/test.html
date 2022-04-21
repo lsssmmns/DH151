@@ -96,6 +96,8 @@ function stt() {
     };
     recognition.addEventListener('error', function(event) {
         console.log('Speech recognition error detected: ' + event.error);
+        recognition.stop();
+        playAndPauseButton.disabled = false;
         // id = id+1;
         // word_curr.innerHTML = words[id];
         // accurracies.push(0);
