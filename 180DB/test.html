@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>load demo</title>
+  <style>
+  body {
+    font-size: 16px;
+    font-family: Arial;
+  }
+  </style>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Steps for testing STT</h1>
+        <ol>
+            <li>Press the button labeled <b>Start Speech to Text</b></li>
+            <br>
+            <li>Say the bolded word below</li>
+            <br>
+            <li>When the word reads <b>All Done! Thank you!</b> email the acc.csv and con.csv files to lsssmmns[@]gmail.com</li>
+        </ol>
+    </div>
+    <br> <br>
+    <div class="testbox">
+        <h6 id="prog">Progress: 0%</h6>  
+    </div>
+    <div>
+        <h1 id="currWord"></h1>
+        <b>
+        <button 
+            id="playAndPause"
+            >
+            Start Speech to Text
+        </button>
+        </b>  
+    </div>
+    <div id="test"></div>
+</body>
+
+<script>
+const words = ["Ackerman","ACM","Acre","Aircraft","Airplane","America","Ant","Applause","Apple","Attic","Avocado","Awkward Steps","Baby","Baby Yoda","Backbone","Baker","Ball","Balloon","Banana","Banana peel","Barber","Baseball","Basketball","Bathroom","Battery","Beach","Beaver","Bed","Beehive","Bell","Ben Shapiro","Bicycle","Bike","Bikini","Bird Scooter","Black hole","Blizzard","Blouse","Board Game","Boelter","Bomb","Bone","Book","Bookend","Bookmark","Boot","Bottle Cap","Bouquet","Bow","Bowl","Bowtie","Bracelet","Bread","Bridge","Bruin Bash","Bruin Bear","Bruinwalk","Bruise","Bubble","Buckle","Bulb","Bumble","Bunk Bed","Bunny","Burp","Bus","Button","Cable","Cake","Camera","Can","Candle","Candy Wrapper","Canvas","Car","Card","Carrot","Catalog","CCLE","CD","Cello","Century","Chair","Chalk","Chandelier","Charger","Checkbook","Cheese","Cherry","Chicken","Chicken Tenders","Chin","Cinderella","Circle","Circus","Clam","Clock","Clog","Cloud","Clue","Coal","Coat","Coconut","Computer","Cook","Cookie","Cookie Jar","Cork","Coronavirus","Cow","Cowboy","Credit Card","Crib","Crust","Crying","Cup","Cupcake","Darkness","Death Stairs","Deodorant","Desert","Diagonal","Dictionary","Dinosaur","Disney World","Dizzy","Dodgers","Dog","Doll","Dollar","Dolphin","Dominoes","Door","Doormat","Dripping","Drum","Dryer","Duck","Eagle","Ears","Eclipse","Egg","Electricity","Eraser","Exponential","Eyeliner","Eyes","Fabric","Face","Face Wash","Farm","Ferris wheel","Finals Week","Fireworks","Flag","Flower","Flute","Fog","Frog","Garbage","Garden","Gate","Gel","Gene Block","Ghost","Gingerbread","Giraffe","Girl","Girl Scout","Glasses","Glitter","Glow Stick","Grapes","Grass","Greenhouse","Grid Paper","Grindr","Hail","Hair","Hair Tie","Hang","Hanger","Harry Potter","Hat","Hawaii","Head","Headphones","Heart","Helmet","Hippo","Hockey","Hook","Horse","Hospital","House","Husband","Hydrogen","Ice","Ice Cube","Ice Fishing","IEEE","Igloo","Inverted Fountain","iPad","Jacket","Janss Steps","Japan","Jar","Jazz","Jellyfish","Jungle","Justin Bieber","Kerckhoff","Ketchup","Key","Key Chain","Kite","Knee","Koala","Lace","Lakers","Lamp","Lamp Shade","Landfill","Las Vegas","Laser","Late Night","Lawnmower","Leaf","Lemon","Leprechaun","Library","Lie","Light","Lighthouse","Lightsaber","Lime","Lion","Lips","Lollipop","Mailman","Man","Mars","Meerkat","Mexico","Minecraft","Mirror","Monday","Money","Monkey","Mountains","Mouse","Mouse Pad","Mouth","Mushroom","Music","Nail","Nail Clippers","Nature","Needle","Neighborhood","Neutron","Newsletter","Newspaper","North Pole","Nose","Ocean","Olympics","Orange","Outlet","Outside","Owl","Paint Brush","Palace","Panda","Paper","Paris","Park","Parody","Password","Pastry","Pauley Pavillion","Peach","Pelican","Pen","Pencil","Pepper","Person","Phone","Photo Album","Photograph","Picture Frame","Pie","Pikachu","Pineapple","Pirate","Plant","Platypus","Popsicle","Positive","Powell Cat","Puddle","Puppy","Purse","Quarantine","Queen","Quilt","Rain","Rainbow","Rainwater","Random","Recycle","Ring","Robin Hood","Robot","Rocket","Rose Bowl","Round","Royce Hall","Rubber Band","Rubber Duck","Rug","Sailboat","Salamander","Sandcastle","Sandpaper","Sauce","Scale","Scarf","School","Scorpion","Scotch Tape","Scream","Screw","Sculpture Garden","Seashell","Seat Belt","Sharpie","Sheep","Shirt","Shoe","Shoelace","Shovel","Shrek","Skate","Sketch Pad","Skip","Sleep","Sleeping bag","Slide","Slipper","Smile","Snag","Snake","Snore","Snowball","Snowflake","Snowman","Socks","Soda","Song","Speakers","Spider","Sponge","SpongeBob","Spoon","Spring","Sprinkler","Star","Sticky Note","Stingray","Stockings","Stone","Stop Sign","Stoplight","Strawberry","Study","Suitcase","Summer","Sun","Sunburn","Sunglasses","Sunscreen","Superman","Swamp","Swing","T-rex","Ten","Text","The Hill","The Study","Thermometer","Thief","Thread","Ticket","Tie","Tinder","Tire Swing","Tissue Box","Toast","Toothpaste","Toothpick","Train station","Treasure","Tree","Triangle","Trip","Trojans","Tunneling","Turtle","Tusk","Tutor","Tweezers","Twister","UCLA","UCPD","Undie Run","Upgrade","USA","Vampire","Vanilla","Vase","Video","Vision","Waffles","Washington DC","Wasp","Westwood","Whale","Whisk","Whistle","Wireless Control","Wooden","Word","Worm","Yolk","Yoshi","Zipper","Zoom"];
+
+const num_words = words.length;
+
+console.log(words);
+
+let word_curr = document.getElementById("currWord");
+
+let startAndStop = document.getElementById('playAndPause');
+
+let progress = document.getElementById('prog');
+
+let currprog = 0;
+
+let confidences = [];
+let accurracies = [];
+
+let id = 0;
+
+word_curr.innerHTML = words[id];
+
+// words.forEach(function(word){
+//     word_curr.innerHTML = word;
+//     console.log(word);
+// });
+
+startAndStop.addEventListener('click', () => {
+        stt();
+    }); 
+
+function stt() {
+    var playAndPauseButton = document.getElementById("playAndPause");
+    var headerAudio = document.getElementById("headerAudio");
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    
+    console.log("Record button pressed");
+
+    recognition.onstart = function() {
+        console.log("recordButton clicked");
+        console.log("Begin Speech Recognition");
+        playAndPauseButton.disabled = true;
+        playAndPauseButton.innerText = 'Wait';
+        playAndPauseButton.className = 'button is-danger is-borderless';
+    };
+
+    recognition.onspeechend = function() {
+        console.log("Speech Recognition ended");
+        playAndPauseButton.disabled = false;
+        playAndPauseButton.innerText = `Start Speech to Text`;
+        playAndPauseButton.className = 'button is-primary is-borderless';
+        recognition.stop();
+    };
+    recognition.addEventListener('error', function(event) {
+        console.log('Speech recognition error detected: ' + event.error);
+        // id = id+1;
+        // word_curr.innerHTML = words[id];
+        // accurracies.push(0);
+        // confidences.push(0);
+    });
+
+    recognition.onresult = function(event) {
+        var transcript = event.results[0][0].transcript;
+        var confidence = event.results[0][0].confidence;
+        confidences.push(confidence);
+        var transcriptSimplified = simplifyWord(transcript);
+        if (transcriptSimplified === simplifyWord(words[id])){
+            accurracies.push(1);
+        }
+        else {
+            accurracies.push(0);
+        };
+        console.log("Text: " + transcript);
+        console.log("Confidence: " + confidence);
+        id = id+1;
+        prog();
+        if (id===num_words){
+            // remove listener 
+            startAndStop.removeEventListener('click',() => {
+                stt()
+            });
+            playAndPauseButton.disabled = true;
+            saveCSV(accurracies,"acc");
+            saveCSV(confidences,"con");
+            word_curr.innerHTML = "All Done! Thank you!";
+        }
+        else {
+            word_curr.innerHTML = words[id];
+        }
+    };
+    recognition.start();
+};
+
+function simplifyWord(word) {
+    newWord = word
+        .toLowerCase()
+        .replace(/\s{2,}/g, " ")
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    return newWord;
+};
+
+function saveCSV (arr, name) {
+  // (B) ARRAY TO CSV STRING
+  var csv = "";
+  for (let row of arr) {
+    csv += row + "\r\n";
+  }
+ 
+  // (C) CREATE BLOB OBJECT
+  var myBlob = new Blob([csv], {type: "text/csv"});
+ 
+  // (D) CREATE DOWNLOAD LINK
+  name = name + ".csv";
+  var url = window.URL.createObjectURL(myBlob);
+  var anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = name;
+ 
+  // (E) "FORCE DOWNLOAD"
+  // NOTE: MAY NOT ALWAYS WORK DUE TO BROWSER SECURITY
+  // BETTER TO LET USERS CLICK ON THEIR OWN
+  anchor.click();
+  window.URL.revokeObjectURL(url);
+  anchor.remove();
+}
+
+function prog(){
+    let newprog = (id/num_words)*100;
+    let diff = newprog-currprog;
+    if (diff > 5) {
+        currprog = newprog;
+        progress.innerHTML = "Progress: " + parseInt(currprog) + "%";
+    };
+}
+
+</script>
+
+<style lang="scss" scoped>
+    body,html {
+        margin:0;
+        width:100%;
+        background-color: rgb(0, 0, 0);
+        vertical-align: middle;
+        color:rgb(255, 255, 255);
+    }
+    body div{
+        text-align: center;
+    }
+    body ol{
+        margin-left: 0;
+        padding: 0;
+    }
+    body li{
+        margin-left: 30%;
+        margin-right: 30%;
+        text-align: center;
+    }
+    body button{
+        background-color: rgb(255, 255, 255);
+        vertical-align: middle;
+        color:rgb(0, 0, 0);
+        width: 40%;
+        height: 25%;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+        border: none;
+        font-size: 1em;
+        text-shadow: rgba(0, 0, 0, 0.27) 0px 0px 2px;
+    }
+    button:hover{
+        background-color: rgb(70, 255, 53);
+    }
+    button:disabled{
+        background-color: rgb(255, 53, 53);
+    }
+    .testbox{
+        border-bottom: 1px solid white;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+    #prog{
+        text-align: right;
+        margin-right: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+</html>
