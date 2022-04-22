@@ -16,6 +16,7 @@
     <div>
         <h1>Steps for testing STT</h1>
         <ol>
+            <li>Set aside 30-45 minutes to complete this test</li>
             <li>Press the button labeled <b>Start Speech to Text</b></li>
             <br>
             <li>Say the bolded word below</li>
@@ -27,6 +28,7 @@
     <div class="testbox">
         <h6 id="prog">Progress: 0%</h6>  
     </div>
+    <div><h6 id="error"></h6></div>
     <div>
         <h1 id="currWord"></h1>
         <b>
@@ -74,6 +76,7 @@ startAndStop.addEventListener('click', () => {
 function stt() {
     var playAndPauseButton = document.getElementById("playAndPause");
     var headerAudio = document.getElementById("headerAudio");
+    var errorSpace = document.getElementById("error");
     var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
     var recognition = new SpeechRecognition();
     
@@ -82,26 +85,21 @@ function stt() {
     recognition.onstart = function() {
         console.log("recordButton clicked");
         console.log("Begin Speech Recognition");
-        playAndPauseButton.disabled = true;
+        errorSpace.innerHTML = '';
+        playAndPauseButton.disabled = 1;
         playAndPauseButton.innerText = 'Wait';
-        playAndPauseButton.className = 'button is-danger is-borderless';
     };
 
     recognition.onspeechend = function() {
         console.log("Speech Recognition ended");
-        playAndPauseButton.disabled = false;
-        playAndPauseButton.innerText = `Start Speech to Text`;
-        playAndPauseButton.className = 'button is-primary is-borderless';
         recognition.stop();
     };
     recognition.addEventListener('error', function(event) {
         console.log('Speech recognition error detected: ' + event.error);
         recognition.stop();
-        playAndPauseButton.disabled = false;
-        // id = id+1;
-        // word_curr.innerHTML = words[id];
-        // accurracies.push(0);
-        // confidences.push(0);
+        errorSpace.innerHTML = 'No speech recognized. Try again.';
+        playAndPauseButton.disabled = 0;
+        playAndPauseButton.innerText = `Start Speech to Text`;
     });
 
     recognition.onresult = function(event) {
@@ -116,33 +114,38 @@ function stt() {
             accurracies.push(0);
         };
         console.log("Text: " + transcript);
-        console.log("Confidence: " + confidence);
+        // console.log("Confidence: " + confidence);
         id = id+1;
         prog();
         if (id===num_words){
-            // remove listener 
-            startAndStop.removeEventListener('click',() => {
-                stt()
-            });
-            playAndPauseButton.disabled = true;
+            playAndPauseButton.hidden = 1;
             saveCSV(accurracies,"acc");
             saveCSV(confidences,"con");
             word_curr.innerHTML = "All Done! Thank you!";
+            progress.innerHTML = "Progress: 100%";
         }
         else {
             word_curr.innerHTML = words[id];
+            playAndPauseButton.disabled = 0;
+            playAndPauseButton.innerText = `Start Speech to Text`;
         }
     };
     recognition.start();
 };
 
 function simplifyWord(word) {
+    // \s: remove white space (prevent any space errors)
+    // [.,\/#!$%'\^&\*;:{}=\-_`~()]: only use letters
+    // normalize("NFD"): if letters are the same visually but unicode is diff shows as same unicode value
+    // \u0300-\u036f: remove diacritics (accents)
     newWord = word
         .toLowerCase()
-        .replace(/\s{2,}/g, " ")
-        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        .replace(/\s/g, "")
+        .replace(/[.,\/#!$%'\^&\*;:{}=\-_`~()]/g, "")
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
+
+    console.log(newWord);
     return newWord;
 };
 
@@ -174,7 +177,7 @@ function saveCSV (arr, name) {
 function prog(){
     let newprog = (id/num_words)*100;
     let diff = newprog-currprog;
-    if (diff > 5) {
+    if (diff >= 5) {
         currprog = newprog;
         progress.innerHTML = "Progress: " + parseInt(currprog) + "%";
     };
@@ -182,7 +185,7 @@ function prog(){
 
 </script>
 
-<style lang="scss" scoped>
+<style>
     body,html {
         margin:0;
         width:100%;
@@ -230,6 +233,10 @@ function prog(){
         margin-right: 10px;
         margin-top: 5px;
         margin-bottom: 5px;
+    }
+    #error{
+        margin-top: 5px;
+        color:red;
     }
 </style>
 </html>
