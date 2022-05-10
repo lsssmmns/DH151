@@ -1,8 +1,8 @@
 // Global variables
 let map;
-let lat = 0;
-let lon = 0;
-let zl = 3;
+let lat = 45;
+let lon = 60;
+let zl = 2;
 let path = '';
 // put this in your global variables
 let geojsonPath = 'data/world.json';
@@ -74,8 +74,6 @@ function mapGeoJSON(field){
         onEachFeature: onEachFeature // actions on each feature
     }).addTo(map);
     
-
-	map.fitBounds(geojson_layer.getBounds())
 
     // create the legend
 	createLegend();
