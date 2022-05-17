@@ -150,6 +150,36 @@ function simplifyWord(word) {
     return newWord;
 };
 
+function noff(guess, word) {
+    // return false if more than allowedErr characters off
+    // otherwise return false
+    const allowedErr = 1;
+    guess = simplifyWord(guess);
+    word = simplifyWord(word);
+    let gLen = guess.length;
+    let  wLen = word.length;
+    let diffLen = gLen - wLen;
+
+    if(Math.abs(diffLen)>allowedErr){
+        return false;
+    } 
+    // gLen is longer
+    else if (diffLen > 0){
+        return nerror(gLen,wLen);
+    } 
+    // wLen is longer
+    else {
+        return nerror(wLen,gLen);
+    }
+}
+
+function nerror(bigWord,lilWord){
+    const allowedErr = 1;
+    for (let l in lilWord){
+        return false; 
+    }
+}
+
 function saveCSV (arr, name) {
   // (B) ARRAY TO CSV STRING
   var csv = "";
